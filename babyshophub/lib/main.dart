@@ -1,12 +1,19 @@
 import 'package:babyshophub/common/helper/colors/app_colors.dart';
+import 'package:babyshophub/firebase_options.dart';
 import 'package:babyshophub/presentation/splash/bloc/splash_cubit.dart';
 import 'package:babyshophub/presentation/splash/pages/splash_screen.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async{
+   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform
+  );
   runApp(
     DevicePreview(
       enabled: true,

@@ -1,6 +1,7 @@
 import 'package:babyshophub/common/helper/navigator/app_navigater.dart';
 import 'package:babyshophub/common/widgets/button/basic_app_button.dart';
 import 'package:babyshophub/presentation/auth/pages/forgot_password.dart';
+import 'package:babyshophub/presentation/auth/pages/signup_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -91,49 +92,52 @@ class SigninScreen extends StatelessWidget {
     );
   }
 
-    Widget _createAccount(BuildContext context) {
-      return RichText(text: TextSpan(children: [
-        TextSpan(
-          text: 'Don\'t have an account? ',
-          style: TextStyle(color: Colors.grey, fontSize: 16),
-        ),
-        TextSpan(
-          text: 'Create Account',
-          recognizer: TapGestureRecognizer()
-            ..onTap = () {
-
-            },
-          style: TextStyle(
-            color: Theme
-                .of(context)
-                .primaryColor,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
+  Widget _createAccount(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: 'Don\'t have an account? ',
+            style: TextStyle(color: Colors.grey, fontSize: 16),
           ),
-        )
-      ]));
-    }
-
-    Widget _forgotpassword(BuildContext context) {
-      return RichText(text: TextSpan(children: [
-        TextSpan(
-          text: 'Forgot Password? ',
-          style: TextStyle(color: Colors.grey, fontSize: 16),
-        ),
-        TextSpan(
-          text: 'Reset',
-          recognizer: TapGestureRecognizer()
-            ..onTap = () {
-              AppNavigater.push(context, const ForgotPassword());
+          TextSpan(
+            text: 'Create Account',
+            recognizer: TapGestureRecognizer()..onTap = () {
+              AppNavigater.push(context, const SignupScreen());
             },
-          style: TextStyle(
-            color: Theme
-                .of(context)
-                .primaryColor,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
+            style: TextStyle(
+              color: Theme.of(context).primaryColor,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        )
-      ]));
-    }
+        ],
+      ),
+    );
   }
+
+  Widget _forgotpassword(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: 'Forgot Password? ',
+            style: TextStyle(color: Colors.grey, fontSize: 16),
+          ),
+          TextSpan(
+            text: 'Reset',
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                AppNavigater.push(context, const ForgotPassword());
+              },
+            style: TextStyle(
+              color: Theme.of(context).primaryColor,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
