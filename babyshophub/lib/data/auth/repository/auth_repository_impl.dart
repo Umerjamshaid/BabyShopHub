@@ -6,15 +6,12 @@ import 'package:babyshophub/service_locator.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
   @override
-  Future<Either> signup(UserCreationReq user) async{
-    return sl<AuthFirebaseService>().signup(user);
-
+  Future<Either> signup(UserCreationReq user) async {
+    return await sl<AuthFirebaseService>().signup(user);
   }
 
   @override
-  Future<Either> getAges() {
-    // TODO: implement getAges
-    throw UnimplementedError();
+  Future<Either> getAges() async {
+    return await sl<AuthFirebaseService>().getAges();
   }
-
 }

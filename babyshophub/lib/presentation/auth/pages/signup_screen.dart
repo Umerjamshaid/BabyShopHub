@@ -8,8 +8,30 @@ import 'package:flutter/material.dart';
 
 import '../../../data/auth/models/user_creation_req.dart';
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
+
+  @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+
+  // Controllers
+  final TextEditingController _firstNameCon = TextEditingController();
+  final TextEditingController _lastNameCon = TextEditingController();
+  final TextEditingController _emailCon = TextEditingController();
+  final TextEditingController _passwordCon = TextEditingController();
+
+  @override
+  void dispose() {
+    _firstNameCon.dispose();
+    _lastNameCon.dispose();
+    _emailCon.dispose();
+    _passwordCon.dispose();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +56,7 @@ class SignupScreen extends StatelessWidget {
             const SizedBox(height: 16),
             _passwordTextField(context),
             const SizedBox(height: 20),
-            _continueButton(),
+            _continueButton(context),
             const SizedBox(height: 20),
             _createAccount(context),
             const SizedBox(height: 20),
@@ -120,17 +142,23 @@ class SignupScreen extends StatelessWidget {
     );
   }
 
-  Widget _continueButton() {
-    return Builder(
-      builder: (context) {
-        return BasicAppButton(
-          title: 'Continue',
-          onPressed: () {
-            // Handle continue action
-            AppNavigater.pushReplacement(context, GenderAndAgeSelectionPage(userCreationReq: UserCreationReq(firstName: '', lastName: '', email: '', password: '', gender: null, age: ''),));
-          },
-        );
-      },
+  // Widget _continueButton() {
+  Widget _continueButton(BuildContext context) {
+    return BasicAppButton(
+        onPressed: (){
+          AppNavigater.push(
+              context,
+              GenderAndAgeSlectionScreen(
+                userCreationReq: UserCreationReq(
+                    firstName: _firstNameCon.text,
+                    email: _emailCon.text,
+                    lastName: _lastNameCon.text,
+                    password: _passwordCon.text, gender: null, age: ''
+                ),
+              )
+          );
+        },
+        title: 'Continue'
     );
   }
 

@@ -16,9 +16,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../common/widgets/appbar/app_bar.dart';
 import '../../../common/widgets/button/basic_app_button.dart';
 
-class GenderAndAgeSelectionPage extends StatelessWidget {
+class GenderAndAgeSlectionScreen extends StatelessWidget {
   final UserCreationReq userCreationReq;
-  const GenderAndAgeSelectionPage({
+  const GenderAndAgeSlectionScreen({
     required this.userCreationReq,
     super.key
   });
@@ -26,7 +26,9 @@ class GenderAndAgeSelectionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const BasicAppbar(),
+      appBar: BasicAppbar(
+        title: const Text('Gender and Age'),
+      ),
       body: MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => GenderSelectionCubit()),
@@ -107,7 +109,7 @@ class GenderAndAgeSelectionPage extends StatelessWidget {
           height: 60,
           decoration: BoxDecoration(
               color: context.read<GenderSelectionCubit>().selectedIndex == genderIndex ?
-              AppColors.primaryBackground : AppColors.secondBackground,
+              AppColors.buttonPrimary : AppColors.accentLight,
               borderRadius: BorderRadius.circular(30)
           ),
           child: Center(
@@ -154,7 +156,7 @@ class GenderAndAgeSelectionPage extends StatelessWidget {
               height: 60,
               padding: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
-                  color: AppColors.secondBackground,
+                  color: AppColors.buttonPrimary,
                   borderRadius: BorderRadius.circular(30)
               ),
               child: Row(
