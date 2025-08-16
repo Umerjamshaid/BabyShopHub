@@ -11,8 +11,16 @@ class AppTheme {
     brightness: Brightness.dark,
     fontFamily: 'CircularStd',
     snackBarTheme: const SnackBarThemeData(
-      backgroundColor: AppColors.background,
-      contentTextStyle: TextStyle(color: Colors.white),
+      backgroundColor: AppColors.primary,
+      contentTextStyle: TextStyle(
+        color: Colors.white,
+        fontSize: 14,
+        fontWeight: FontWeight.w400
+      ),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(8))
+      )
     ),
     inputDecorationTheme: InputDecorationTheme(   
         filled: true,

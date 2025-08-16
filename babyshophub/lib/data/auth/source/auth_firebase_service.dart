@@ -14,14 +14,14 @@ class AuthFirebaseServiceImpl extends AuthFirebaseService {
   @override
   Future<Either> signup(UserCreationReq user) async {
     try {
-      var ReturnedData = await FirebaseAuth.instance
+      var returnedData = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
             email: user.email!,
             password: user.password!,
           );
       await FirebaseFirestore.instance
           .collection('Users')
-          .doc(ReturnedData.user!.uid)
+          .doc(returnedData.user!.uid)
           .set({
             'firstName': user.firstName,
             'lastName': user.lastName,
@@ -31,15 +31,17 @@ class AuthFirebaseServiceImpl extends AuthFirebaseService {
           });
       return Right('SignUp Successfully');
     } on FirebaseAuthException catch (e) {
-      String massage = '';
+      String message = '';
 
       if (e.code == 'weak-password') {
-        massage = 'The password provided is too weak';
+        message = 'The password provided is too weak';
       } else if (e.code == 'email-already-in-use') {
-        massage = 'The account already exists for that email';
+        message = 'The account already exists for that email';
+      } else {
+        message = 'An error occurred during signup: ${e.message}';
       }
 
-      return left(massage);
+      return Left(message);
     }
   }
 
@@ -51,7 +53,7 @@ class AuthFirebaseServiceImpl extends AuthFirebaseService {
           .get();
       return Right(returnedData.docs);
     } catch (e) {
-      return left('Something went wrong please try again later');
+      return Left('Something went wrong please try again later');
     }
   }
 }

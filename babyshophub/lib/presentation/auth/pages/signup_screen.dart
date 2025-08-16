@@ -16,7 +16,6 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-
   // Controllers
   final TextEditingController _firstNameCon = TextEditingController();
   final TextEditingController _lastNameCon = TextEditingController();
@@ -32,36 +31,37 @@ class _SignupScreenState extends State<SignupScreen> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign In'),
+        title: const Text('Create Account'),
         centerTitle: true,
         backgroundColor: Theme.of(context).primaryColor,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _signinText(context),
-            const SizedBox(height: 20),
-            _firstnameField(context),
-            const SizedBox(height: 16),
-            _lastnameField(context),
-            const SizedBox(height: 16),
-            _emailTextField(context),
-            const SizedBox(height: 16),
-            _passwordTextField(context),
-            const SizedBox(height: 20),
-            _continueButton(context),
-            const SizedBox(height: 20),
-            _createAccount(context),
-            const SizedBox(height: 20),
-            _forgotpassword(context),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _signinText(context),
+              const SizedBox(height: 20),
+              _firstnameField(context),
+              const SizedBox(height: 16),
+              _lastnameField(context),
+              const SizedBox(height: 16),
+              _emailTextField(context),
+              const SizedBox(height: 16),
+              _passwordTextField(context),
+              const SizedBox(height: 20),
+              _continueButton(context),
+              const SizedBox(height: 20),
+              _createAccount(context),
+              const SizedBox(height: 20),
+              _forgotpassword(context),
+            ],
+          ),
         ),
       ),
     );
@@ -75,8 +75,9 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   Widget _firstnameField(BuildContext context) {
-    return const TextField(
-      decoration: InputDecoration(
+    return TextField(
+      controller: _firstNameCon,
+      decoration: const InputDecoration(
         labelText: 'First Name',
         labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
         hintText: 'Enter your First name',
@@ -87,13 +88,14 @@ class _SignupScreenState extends State<SignupScreen> {
           borderSide: BorderSide.none,
         ),
       ),
-      keyboardType: TextInputType.emailAddress,
+      keyboardType: TextInputType.text,
     );
   }
 
   Widget _lastnameField(BuildContext context) {
-    return const TextField(
-      decoration: InputDecoration(
+    return TextField(
+      controller: _lastNameCon,
+      decoration: const InputDecoration(
         labelText: 'Last Name',
         labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
         hintText: 'Enter your Last name',
@@ -104,13 +106,14 @@ class _SignupScreenState extends State<SignupScreen> {
           borderSide: BorderSide.none,
         ),
       ),
-      keyboardType: TextInputType.emailAddress,
+      keyboardType: TextInputType.text,
     );
   }
 
   Widget _emailTextField(BuildContext context) {
-    return const TextField(
-      decoration: InputDecoration(
+    return TextField(
+      controller: _emailCon,
+      decoration: const InputDecoration(
         labelText: 'Email',
         labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
         hintText: 'Enter your email',
@@ -126,8 +129,9 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   Widget _passwordTextField(BuildContext context) {
-    return const TextField(
-      decoration: InputDecoration(
+    return TextField(
+      controller: _passwordCon,
+      decoration: const InputDecoration(
         labelText: 'Password',
         labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
         hintText: 'Enter your password',
@@ -145,66 +149,72 @@ class _SignupScreenState extends State<SignupScreen> {
   // Widget _continueButton() {
   Widget _continueButton(BuildContext context) {
     return BasicAppButton(
-        onPressed: (){
-          AppNavigater.push(
-              context,
-              GenderAndAgeSlectionScreen(
-                userCreationReq: UserCreationReq(
-                    firstName: _firstNameCon.text,
-                    email: _emailCon.text,
-                    lastName: _lastNameCon.text,
-                    password: _passwordCon.text, gender: null, age: ''
-                ),
-              )
-          );
-        },
-        title: 'Continue'
+      onPressed: () {
+        AppNavigater.push(
+          context,
+          GenderAndAgeSlectionScreen(
+            userCreationReq: UserCreationReq(
+              firstName: _firstNameCon.text,
+              email: _emailCon.text,
+              lastName: _lastNameCon.text,
+              password: _passwordCon.text,
+              gender: null,
+              age: '',
+            ),
+          ),
+        );
+      },
+      title: 'Continue',
     );
   }
 
   Widget _createAccount(BuildContext context) {
-    return RichText(text: TextSpan(children: [
-      TextSpan(
-        text: 'Do have an account? ',
-        style: TextStyle(color: Colors.grey, fontSize: 16),
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: 'Don\'t have an account? ',
+            style: TextStyle(color: Colors.grey, fontSize: 16),
+          ),
+          TextSpan(
+            text: 'Login',
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                AppNavigater.pushReplacement(context, const SigninScreen());
+              },
+            style: TextStyle(
+              color: Theme.of(context).primaryColor,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
       ),
-      TextSpan(
-        text: 'Login',
-        recognizer: TapGestureRecognizer()
-          ..onTap = () {
-          AppNavigater.pushReplacement(context, const SigninScreen());
-          },
-        style: TextStyle(
-          color: Theme
-              .of(context)
-              .primaryColor,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        ),
-      )
-    ]));
+    );
   }
 
   Widget _forgotpassword(BuildContext context) {
-    return RichText(text: TextSpan(children: [
-      TextSpan(
-        text: 'Forgot Password? ',
-        style: TextStyle(color: Colors.grey, fontSize: 16),
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: 'Forgot Password? ',
+            style: TextStyle(color: Colors.grey, fontSize: 16),
+          ),
+          TextSpan(
+            text: 'Reset',
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                AppNavigater.push(context, const ForgotPassword());
+              },
+            style: TextStyle(
+              color: Theme.of(context).primaryColor,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
       ),
-      TextSpan(
-        text: 'Reset',
-        recognizer: TapGestureRecognizer()
-          ..onTap = () {
-            AppNavigater.push(context, const ForgotPassword());
-          },
-        style: TextStyle(
-          color: Theme
-              .of(context)
-              .primaryColor,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        ),
-      )
-    ]));
+    );
   }
 }

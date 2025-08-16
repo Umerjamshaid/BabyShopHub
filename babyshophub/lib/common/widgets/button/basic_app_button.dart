@@ -39,7 +39,7 @@ class BasicAppButton extends StatelessWidget {
           backgroundColor: isOutlined ? Colors.transparent : defaultBg,
           foregroundColor: defaultTextColor,
           elevation: isOutlined ? 0 : 4,
-          shadowColor: isOutlined ? Colors.transparent : defaultBg.withOpacity(0.4),
+          shadowColor: isOutlined ? Colors.transparent : defaultBg.withAlpha(4),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
             side: isOutlined

@@ -14,13 +14,17 @@ class UserCreationReq {
     required this.gender,
     required this.age
   });
-
-  Map<String, dynamic> toJson() {
+  // Add this method to convert to Firestore document
+  Map<String, dynamic> toMap() {
     return {
-      'first_name': firstName,
-      'last_name': lastName,
+      'firstName': firstName,
+      'lastName': lastName,
       'email': email,
-      'password': password,
+      'gender': gender,
+      'age': age,
+      // Don't store password in Firestore directly
     };
   }
+
+
 }
