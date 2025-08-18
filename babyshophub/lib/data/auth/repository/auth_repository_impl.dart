@@ -1,4 +1,5 @@
 import 'package:babyshophub/data/auth/models/user_creation_req.dart';
+import 'package:babyshophub/data/auth/models/user_signin_req.dart';
 import 'package:babyshophub/data/auth/source/auth_firebase_service.dart';
 import 'package:babyshophub/domain/auth/repository/auth.dart';
 import 'package:dartz/dartz.dart';
@@ -13,5 +14,15 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<Either> getAges() async {
     return await sl<AuthFirebaseService>().getAges();
+  }
+
+  @override
+  Future<Either> signin(UserSigninReq user) async{
+    return await sl<AuthFirebaseService>().signin(user);
+  }
+
+  @override
+  Future<Either> sendPasswordResetEmail(String email) async{
+    return await sl<AuthFirebaseService>().sendPasswordResetEmail(email);
   }
 }

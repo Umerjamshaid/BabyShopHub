@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AppNavigater {
@@ -13,5 +12,8 @@ class AppNavigater {
       context,
       MaterialPageRoute(builder: (context) => widget),
     );
+  }
+  static void pop(BuildContext context) {
+    Navigator.pop(context );
   }
 }

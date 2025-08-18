@@ -7,59 +7,61 @@ import '../../bloc/button/button_state.dart';
 class BasicReactiveButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String title;
-  final double ? height;
-  final Widget ? content;
+  final double? height;
+  final Widget? content;
   const BasicReactiveButton({
     required this.onPressed,
     this.title = '',
     this.height,
     this.content,
-    super.key
+    super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder < ButtonStateCubit, ButtonState > (
-        builder: (context, state) {
-          if (state is ButtonLoadingState) {
-            return _loading();
-          }
-          return _initial();
+    return BlocBuilder<ButtonStateCubit, ButtonState>(
+      builder: (context, state) {
+        if (state is ButtonLoadingState) {
+          return _loading();
         }
+        return _initial();
+      },
     );
   }
 
   Widget _loading() {
     return ElevatedButton(
-        onPressed: null,
-        style: ElevatedButton.styleFrom(
-          minimumSize: Size.fromHeight(height ?? 50),
+      onPressed: null,
+      style: ElevatedButton.styleFrom(
+        minimumSize: Size.fromHeight(height ?? 50),
+      ),
+      child: Container(
+        height: height ?? 50,
+        alignment: Alignment.center,
+        child: const CircularProgressIndicator(
+          color: Colors.white,
+          strokeWidth: 2.0,
+          backgroundColor: Colors.transparent,
         ),
-        child: Container(
-            height: height ?? 50,
-            alignment: Alignment.center,
-            child: const CircularProgressIndicator(
-              color: Colors.white,
-              strokeWidth: 2.0,
-              backgroundColor: Colors.transparent,
-            )
-        )
+      ),
     );
   }
 
   Widget _initial() {
     return ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          minimumSize: Size.fromHeight(height ?? 50),
-        ),
-        child: content ?? Text(
-          title,
-          style: const TextStyle(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        minimumSize: Size.fromHeight(height ?? 50),
+      ),
+      child:
+          content ??
+          Text(
+            title,
+            style: const TextStyle(
               color: Colors.white,
-              fontWeight: FontWeight.w400
+              fontWeight: FontWeight.w400,
+            ),
           ),
-        )
     );
   }
 }

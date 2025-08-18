@@ -1,10 +1,18 @@
+import 'package:babyshophub/common/bloc/button/button_state_cubit.dart';
 import 'package:babyshophub/common/helper/navigator/app_navigater.dart';
-import 'package:babyshophub/common/widgets/button/basic_app_button.dart';
-import 'package:flutter/gestures.dart';
+import 'package:babyshophub/common/widgets/button/basic_reactive_button.dart';
+import 'package:babyshophub/domain/auth/usecases/send_password_reset_email.dart';
+import 'package:babyshophub/presentation/auth/pages/password_reset_email.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../common/bloc/button/button_state.dart';
 
 class ForgotPassword extends StatelessWidget {
-  const ForgotPassword({super.key});
+   ForgotPassword({super.key});
+
+  final TextEditingController _emailCon = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -14,17 +22,35 @@ class ForgotPassword extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Theme.of(context).primaryColor,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _signinText(context),
-            const SizedBox(height: 20),
-            _emailTextField(context),
-            const SizedBox(height: 16),
-            _continueButton(),
-          ],
+      body: BlocProvider(
+        create: (context) => ButtonStateCubit(),
+        child: BlocListener<ButtonStateCubit, ButtonState>(
+          listener: (context, state) {
+            if (state is ButtonFailureState) {
+              var snakebar = SnackBar(
+                content: Text(state.errorMessage),
+                behavior: SnackBarBehavior.floating,
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snakebar);
+            }
+
+            if(state is ButtonSuccessState){
+              AppNavigater.push(context, const PasswordResetEmailPage());
+            }
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _signinText(context),
+                const SizedBox(height: 20),
+                _emailTextField(context),
+                const SizedBox(height: 16),
+                _continueButton(),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -38,8 +64,9 @@ class ForgotPassword extends StatelessWidget {
   }
 
   Widget _emailTextField(BuildContext context) {
-    return const TextField(
-      decoration: InputDecoration(
+    return TextField(
+      controller: _emailCon,
+      decoration: const InputDecoration(
         labelText: 'Email',
         labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
         hintText: 'Enter your email',
@@ -54,17 +81,22 @@ class ForgotPassword extends StatelessWidget {
     );
   }
 
-  Widget _continueButton() {
-    return Builder(
-      builder: (context) {
-        return BasicAppButton(
-          title: 'Continue',
-          onPressed: () {
-            // Handle continue action
-          },
-        );
-      },
-    );
-  }
+   Widget _continueButton() {
+     return Builder(
+       builder: (context) {
+         return BasicReactiveButton(
+           title: 'Continue',
+           onPressed: () async {
+             // Handle continue action
+             context.read<ButtonStateCubit>().execute(
+               usecase: SendPasswordResetEmailUseCase(),
+               params: _emailCon.text,
+             );
+           },
+         );
+       },
+     );
+   }
+
 
 }

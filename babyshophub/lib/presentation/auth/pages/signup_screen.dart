@@ -180,7 +180,7 @@ class _SignupScreenState extends State<SignupScreen> {
             text: 'Login',
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                AppNavigater.pushReplacement(context, const SigninScreen());
+                AppNavigater.pushReplacement(context,  SigninScreen());
               },
             style: TextStyle(
               color: Theme.of(context).primaryColor,
@@ -205,7 +205,7 @@ class _SignupScreenState extends State<SignupScreen> {
             text: 'Reset',
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                AppNavigater.push(context, const ForgotPassword());
+                AppNavigater.push(context,  ForgotPassword());
               },
             style: TextStyle(
               color: Theme.of(context).primaryColor,

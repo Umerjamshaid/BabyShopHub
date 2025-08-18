@@ -14,7 +14,7 @@ class SplashScreen extends StatelessWidget {
         if (state is Unauthenticated) {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const SigninScreen()),
+            MaterialPageRoute(builder: (context) =>  SigninScreen()),
           );
         }
       },
