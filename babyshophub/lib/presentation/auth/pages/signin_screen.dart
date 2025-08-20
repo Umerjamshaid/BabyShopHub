@@ -8,7 +8,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class SigninScreen extends StatefulWidget {
-  SigninScreen({super.key});
+  const SigninScreen({super.key});
 
   @override
   State<SigninScreen> createState() => _SigninScreenState();
@@ -132,7 +132,7 @@ class _SigninScreenState extends State<SigninScreen> {
             text: 'Reset',
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                AppNavigater.push(context,  ForgotPassword());
+                AppNavigater.push(context, ForgotPassword());
               },
             style: TextStyle(
               color: Theme.of(context).primaryColor,

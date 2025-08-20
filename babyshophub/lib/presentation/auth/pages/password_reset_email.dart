@@ -5,8 +5,6 @@ import 'package:babyshophub/presentation/auth/pages/signin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../core/configs/assets/app_vectors.dart';
-
 class PasswordResetEmailPage extends StatelessWidget {
   const PasswordResetEmailPage({super.key});
 
@@ -17,37 +15,32 @@ class PasswordResetEmailPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _emailSending(),
-          const SizedBox(height: 30,),
+          const SizedBox(height: 30),
           _sentEmail(),
-          const SizedBox(height: 30,),
-          _returnToLoginButton(context)
+          const SizedBox(height: 30),
+          _returnToLoginButton(context),
         ],
       ),
     );
   }
+
   Widget _emailSending() {
-    return Center(
-      child: SvgPicture.asset(
-          AppVectors.emailSending
-      ),
-    );
+    return Center(child: SvgPicture.asset(AppVectors.emailSending));
   }
 
   Widget _sentEmail() {
     return const Center(
-      child: Text(
-          'We Sent you an Email to reset your password.'
-      ),
+      child: Text('We Sent you an Email to reset your password.'),
     );
   }
 
   Widget _returnToLoginButton(BuildContext context) {
     return BasicAppButton(
-        onPressed: (){
-          AppNavigater.pushReplacement(context, SigninScreen());
-        },
-        width: 200,
-        title: 'Return to Login'
+      onPressed: () {
+        AppNavigater.pushReplacement(context, SigninScreen());
+      },
+      width: 200,
+      title: 'Return to Login',
     );
   }
 }

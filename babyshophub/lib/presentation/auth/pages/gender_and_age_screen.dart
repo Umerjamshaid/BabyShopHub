@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../common/widgets/appbar/app_bar.dart';
-import '../../../common/widgets/button/basic_app_button.dart';
 
 class GenderAndAgeSlectionScreen extends StatelessWidget {
   final UserCreationReq userCreationReq;

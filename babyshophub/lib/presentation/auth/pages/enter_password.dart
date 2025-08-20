@@ -1,11 +1,11 @@
 import 'package:babyshophub/common/bloc/button/button_state_cubit.dart';
 import 'package:babyshophub/common/helper/navigator/app_navigater.dart';
-import 'package:babyshophub/common/widgets/button/basic_app_button.dart';
 import 'package:babyshophub/common/widgets/button/basic_reactive_button.dart';
 import 'package:babyshophub/data/auth/models/user_signin_req.dart';
 import 'package:babyshophub/domain/auth/usecases/signin.dart';
 import 'package:babyshophub/presentation/auth/pages/forgot_password.dart';
 import 'package:babyshophub/presentation/auth/pages/signup_screen.dart';
+import 'package:babyshophub/presentation/home/pages/home.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,8 +40,9 @@ class EnterPasswordScreen extends StatelessWidget {
                 ScaffoldMessenger.of(context).showSnackBar(snakebar);
               }
 
-              if(state is ButtonSuccessState){
-
+              if (state is ButtonSuccessState) {
+                // Navigate to the next screen after successful sign-in
+                AppNavigater.pushAndRemove(context, const HomeScreen());
               }
             },
             child: Column(
@@ -161,7 +162,7 @@ class EnterPasswordScreen extends StatelessWidget {
             text: 'Reset',
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                AppNavigater.push(context,  ForgotPassword());
+                AppNavigater.push(context, ForgotPassword());
               },
             style: TextStyle(
               color: Theme.of(context).primaryColor,

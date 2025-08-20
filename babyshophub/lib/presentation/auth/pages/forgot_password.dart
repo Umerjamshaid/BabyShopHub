@@ -3,14 +3,13 @@ import 'package:babyshophub/common/helper/navigator/app_navigater.dart';
 import 'package:babyshophub/common/widgets/button/basic_reactive_button.dart';
 import 'package:babyshophub/domain/auth/usecases/send_password_reset_email.dart';
 import 'package:babyshophub/presentation/auth/pages/password_reset_email.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../common/bloc/button/button_state.dart';
 
 class ForgotPassword extends StatelessWidget {
-   ForgotPassword({super.key});
+  ForgotPassword({super.key});
 
   final TextEditingController _emailCon = TextEditingController();
 
@@ -34,7 +33,7 @@ class ForgotPassword extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(snakebar);
             }
 
-            if(state is ButtonSuccessState){
+            if (state is ButtonSuccessState) {
               AppNavigater.push(context, const PasswordResetEmailPage());
             }
           },
@@ -81,22 +80,20 @@ class ForgotPassword extends StatelessWidget {
     );
   }
 
-   Widget _continueButton() {
-     return Builder(
-       builder: (context) {
-         return BasicReactiveButton(
-           title: 'Continue',
-           onPressed: () async {
-             // Handle continue action
-             context.read<ButtonStateCubit>().execute(
-               usecase: SendPasswordResetEmailUseCase(),
-               params: _emailCon.text,
-             );
-           },
-         );
-       },
-     );
-   }
-
-
+  Widget _continueButton() {
+    return Builder(
+      builder: (context) {
+        return BasicReactiveButton(
+          title: 'Continue',
+          onPressed: () async {
+            // Handle continue action
+            context.read<ButtonStateCubit>().execute(
+              usecase: SendPasswordResetEmailUseCase(),
+              params: _emailCon.text,
+            );
+          },
+        );
+      },
+    );
+  }
 }

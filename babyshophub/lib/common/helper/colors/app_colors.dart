@@ -4,6 +4,11 @@ class AppColors {
   // Main background colors
   static const Color primaryBackground = Color(0xFF1E1E2C); // Dark navy / main bg
   static const Color secondBackground = Color(0xFF2D2D44);  // Slightly lighter bg
+  static const Color thirdBackground = Color(0xFF3A3A55);   // Even lighter bg for cards, etc.
+  static const Color fourthBackground = Color(0xFF4A4A66);  // Lightest bg for sections
+  static const Color fifthBackground = Color(0xFF5A5A77);   // Very light bg for highlights
+  static const Color sixthBackground = Color(0xFF2196F3);
+
 
   // Accent colors
   static const Color accent = Color(0xFFFFC107);            // Warm yellow
