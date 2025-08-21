@@ -1,3 +1,4 @@
+import 'package:babyshophub/domain/auth/entity/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,12 +19,12 @@ class Header extends StatelessWidget {
       child: BlocBuilder<UserInfoDisplayCubit, UserInfoDisplayState>(
         builder: (context, state) {
           if (state is UserInfoLoading) {
-            return const CircularProgressIndicator();
+            return Center(child: const CircularProgressIndicator());
           }
           if (state is UserInfoLoaded) {
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [_profileImage(), _gender(), _cart()],
+              children: [_profileImage(state.user), _gender(state.user), _cart()],
             );
           }
           return Container();
@@ -32,15 +33,20 @@ class Header extends StatelessWidget {
     );
   }
 
-  Widget _profileImage() {
+  Widget _profileImage(UserEntity user) {
     return GestureDetector(
       onTap: () {},
       child: Container(
         height: 40,
         width: 40,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(AppImages.profile), // Static image only
+            image: user.image.isEmpty ?
+               const AssetImage(
+                  AppImages.profile
+                ) : NetworkImage(
+              user.image
+            )
           ),
           color: Colors.red,
           shape: BoxShape.circle,
@@ -49,18 +55,23 @@ class Header extends StatelessWidget {
     );
   }
 
-  Widget _gender() {
+  Widget _gender(UserEntity user) {
     return Container(
       height: 40,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        color: AppColors.border,
-        borderRadius: BorderRadius.circular(100),
+      padding: const EdgeInsets.symmetric(
+          horizontal: 16
       ),
-      child: const Center(
+      decoration: BoxDecoration(
+          color: AppColors.primaryBackground,
+          borderRadius: BorderRadius.circular(100)
+      ),
+      child: Center(
         child: Text(
-          "Men", // Static text
-          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+          user.gender == 1 ? 'Men' : 'Women',
+          style: const TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 16
+          ),
         ),
       ),
     );

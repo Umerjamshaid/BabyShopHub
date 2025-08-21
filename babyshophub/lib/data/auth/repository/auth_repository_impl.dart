@@ -5,6 +5,7 @@ import 'package:babyshophub/data/auth/source/auth_firebase_service.dart';
 import 'package:babyshophub/domain/auth/repository/auth.dart';
 import 'package:dartz/dartz.dart';
 import 'package:babyshophub/service_locator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
   @override
@@ -36,12 +37,15 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<Either> getUser() async {
     var user = await sl<AuthFirebaseService>().getUser();
     return user.fold(
-      (error) {
-        return Left(error);
-      },
-      (data) {
-        return Right(UserModel.fromJson(data).toEntity());
-      },
+        (error){
+          return Left(error);
+        },
+        (data){
+          return Right(
+            UserModel.fromJson(data).toEntity()
+          );
+        }
     );
+
   }
 }

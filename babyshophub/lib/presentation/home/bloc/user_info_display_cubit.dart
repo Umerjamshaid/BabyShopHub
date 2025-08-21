@@ -8,7 +8,7 @@ class UserInfoDisplayCubit extends Cubit<UserInfoDisplayState> {
   UserInfoDisplayCubit() : super(UserInfoLoading());
 
   void displayUserInfo() async {
-    var returnedData = await sl<GetUserUseCase>().call();
+    var returnedData =    await sl<GetUserUseCase>().call();
     returnedData.fold(
       (error) {
         emit(LoadUserInfoFailure());

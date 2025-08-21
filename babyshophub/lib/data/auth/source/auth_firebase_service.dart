@@ -143,13 +143,10 @@ class AuthFirebaseServiceImpl extends AuthFirebaseService {
       var userData = await FirebaseFirestore.instance
           .collection('Users')
           .doc(currentUser?.uid)
-          .get()
-          .then((value) => value.data());
+          .get().then((value) => value.data()) ;
       return Right(userData);
-    } catch (e) {
-      return const Left(
-        'Please check your internet connection and try again later',
-      );
+    } catch (e){
+      return Left('Check your internet connection and try again');
     }
   }
 }
